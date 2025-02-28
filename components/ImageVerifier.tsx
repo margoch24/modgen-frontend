@@ -26,7 +26,7 @@ function ImageVerifier({
 
   useEffect(() => {
     updateIsVerificationPending(isPending);
-  }, [isPending]);
+  }, [isPending, updateIsVerificationPending]);
 
   const handleVerifyImage = () => {
     if (!modification_id) {
@@ -61,7 +61,7 @@ function ImageVerifier({
         });
 
         toast.success("Successfully verified");
-      } catch (error) {
+      } catch {
         toast.error("Internal server error");
       }
     });

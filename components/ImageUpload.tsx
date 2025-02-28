@@ -26,7 +26,7 @@ function ImageUpload({
 
   useEffect(() => {
     updateIsPending(isPending);
-  }, [isPending]);
+  }, [isPending, updateIsPending]);
 
   const handleModifyImage = () => {
     if (!selectedFile) {
@@ -58,7 +58,7 @@ function ImageUpload({
           modification_id,
         });
         toast.success("Successfully modified");
-      } catch (error) {
+      } catch {
         toast.error("Internal server error");
       }
     });
