@@ -16,6 +16,8 @@ export default function Home() {
   const [verifiedData, setVerifiedData] = useState<VerifyImageType>({
     reversed_filename: "",
     status: "",
+    ssim_modified: 0,
+    ssim_reversed: 0,
   });
 
   const [isUploadPending, setIsUploadPending] = useState<boolean>(false);

@@ -5,6 +5,8 @@ import CustomSkeleton from "./CustomSkeleton";
 import { CircularProgress } from "@mui/material";
 import { CircleCheckBig, CircleX } from "lucide-react";
 
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+
 function ImageStatus({
   isVerificationPending,
   verifiedData,
@@ -12,7 +14,12 @@ function ImageStatus({
   isVerificationPending: boolean;
   verifiedData: VerifyImageType;
 }) {
-  const { reversed_filename, status } = verifiedData;
+  const { reversed_filename, status, ssim_modified, ssim_reversed } =
+    verifiedData;
+
+  const roundNum = (number: number) => {
+    return Math.round((number + Number.EPSILON) * 100) / 100;
+  };
   return (
     <div className="sm:flex flex-row items-center sm:w-[90%] m-auto text-center my-10 space-y-10 sm:space-y-0">
       {reversed_filename && status && (
@@ -43,6 +50,27 @@ function ImageStatus({
                 <CircleX color="red" size={30} />
               </div>
             )}
+
+            <Table className="mt-10 w-fit mx-auto">
+              <TableBody>
+                <TableRow>
+                  <TableCell className="text-left w-[180px]">
+                    Reversed similarity %
+                  </TableCell>
+                  <TableCell className="text-left">
+                    {roundNum(ssim_reversed * 100)} %
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="text-left w-[180px]">
+                    Modified similarity %
+                  </TableCell>
+                  <TableCell className="text-left">
+                    {roundNum(ssim_modified * 100)} %
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </>
         )}
         {isVerificationPending && (

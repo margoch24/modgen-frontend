@@ -49,10 +49,13 @@ function ImageVerifier({
           toast.error(data?.message || "Internal server error");
           return;
         }
-        const { reversed_filename, status } = data;
+        const { reversed_filename, status, ssim_modified, ssim_reversed } =
+          data;
         updateVerifiedData({
           reversed_filename,
           status,
+          ssim_modified,
+          ssim_reversed,
         });
 
         updateImageData({

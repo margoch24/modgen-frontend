@@ -18,6 +18,8 @@ export type VerifyImageType = {
   reversed_filename: string;
   status: string;
   modified_status?: boolean;
+  ssim_modified: number;
+  ssim_reversed: number;
 };
 export type ModifyImageType = {
   original_filename: string;
