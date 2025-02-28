@@ -1,9 +1,7 @@
-import React from "react";
-
 function Header() {
   return (
     <div
-      className="bg-black min-h-[150px] pl-20 flex items-center"
+      className="bg-black min-h-[150px] pl-10 sm:pl-20 flex items-center"
       style={{ borderBottomLeftRadius: "60px" }}
     >
       <div>
