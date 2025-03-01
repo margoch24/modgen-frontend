@@ -7,7 +7,7 @@ import { Label } from "./ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { postModifyImage } from "@/api/requests/images/postModifyImage";
 import { toast } from "sonner";
-import { ModifyImageType, VerifyImageType } from "@/common/types";
+import { MAX_WIDTH, ModifyImageType, VerifyImageType } from "@/common/types";
 
 function ImageUpload({
   updateImageData,
@@ -64,6 +64,42 @@ function ImageUpload({
     });
   };
 
+  const resizeImage = (file: File) => {
+    const img = new Image();
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      img.src = reader.result as string;
+    };
+
+    img.onload = () => {
+      if (img.width <= 1000) {
+        return setSelectedFile(file);
+      }
+      const canvas = document.createElement("canvas");
+      const scale = MAX_WIDTH / img.width;
+      const newHeight = img.height * scale;
+
+      canvas.width = MAX_WIDTH;
+      canvas.height = newHeight;
+
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, MAX_WIDTH, newHeight);
+      }
+
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          return;
+        }
+        const resizedFile = new File([blob], file.name, { type: file.type });
+        setSelectedFile(resizedFile);
+      }, file.type);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
@@ -82,7 +118,7 @@ function ImageUpload({
         ssim_reversed: 0,
       });
     }
-    setSelectedFile(file);
+    resizeImage(file);
     updatePreviewOriginalUrl(URL.createObjectURL(file));
   };
 

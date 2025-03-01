@@ -32,3 +32,5 @@ export enum VerificationStatus {
   Success = "true",
   Fail = "false",
 }
+
+export const MAX_WIDTH = 1000;
