@@ -34,3 +34,8 @@ export enum VerificationStatus {
 }
 
 export const MAX_WIDTH = 1000;
+
+export enum BackendUrlType {
+  One = "one",
+  Two = "two",
+}

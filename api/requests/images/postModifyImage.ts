@@ -1,10 +1,10 @@
-import axiosInstance from "@/api/getAxiosInstance";
+import { getAxiosInstance } from "@/api/getAxiosInstance";
 import { Endpoints, ModifyImageType, ResponseData } from "@/common/types";
 import { AxiosError, AxiosResponse } from "axios";
 
 export const postModifyImage = async (formData: FormData | null) => {
   try {
-    return await axiosInstance.post<ResponseData<ModifyImageType>>(
+    return await getAxiosInstance().post<ResponseData<ModifyImageType>>(
       Endpoints.postModifyImage,
       formData
     );
